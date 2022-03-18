@@ -1,0 +1,7 @@
+D:\my_files\Asp.net-Core-REST-APIs\obj\Debug\net46\catalog.csprojAssemblyReference.cache
+D:\my_files\Asp.net-Core-REST-APIs\obj\Debug\net46\catalog.AssemblyInfoInputs.cache
+D:\my_files\Asp.net-Core-REST-APIs\obj\Debug\net46\catalog.AssemblyInfo.cs
+D:\my_files\Asp.net-Core-REST-APIs\obj\Debug\net46\catalog.csproj.AssemblyReference.cache
+D:\my_files\Asp.net-Core-REST-APIs\obj\Debug\net46\catalog.csproj.SuggestedBindingRedirects.cache
+D:\my_files\Asp.net-Core-REST-APIs\obj\Debug\net46\catalog.GeneratedMSBuildEditorConfig.editorconfig
+D:\my_files\Asp.net-Core-REST-APIs\obj\Debug\net46\catalog.csproj.CoreCompileInputs.cache
