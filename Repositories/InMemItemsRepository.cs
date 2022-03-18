@@ -4,7 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 namespace Catalog.Repositories
 {
-    class InMemItesmRepository
+
+    /*
+        implement interface
+    */
+    class InMemItesmRepository : IInMemItesmRepository
     {
         private readonly List<Item> items = new()
         {
@@ -13,12 +17,14 @@ namespace Catalog.Repositories
             new Item { id = Guid.NewGuid(), Name = "a3", Price = 300, CreatedDate = DateTimeOffset.UtcNow },
         };
 
-        public IEnumerable<Item> getItems(){
+        public IEnumerable<Item> GetItems()
+        {
             return items;
         }
 
-        public Item getItem(Guid id){
-            return items.Where( item => item.id == id).SingleOrDefault();
+        public Item GetItem(Guid id)
+        {
+            return items.Where(item => item.id == id).SingleOrDefault();
         }
     }
 }
