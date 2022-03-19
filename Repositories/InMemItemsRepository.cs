@@ -1,3 +1,4 @@
+using Asp.net_Core_REST_APIs.Dtos;
 using Catalog.Entities;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,22 @@ namespace Catalog.Repositories
         public Item GetItem(Guid id)
         {
             return items.Where(item => item.id == id).SingleOrDefault();
+        }
+
+        public void CreateItem(Item item)
+        {
+            this.items.Add(item);
+        }
+
+        public void UpdateItem(Item newItem)
+        {
+            var index = items.FindIndex(item => item.id == newItem.id);
+            items[index] = newItem;
+        }
+
+        public void DeleteItem(Guid id){
+            var index = items.FindIndex(item => item.id == id);
+            items.RemoveAt(index);
         }
     }
 }
