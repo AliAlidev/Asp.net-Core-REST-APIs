@@ -1,4 +1,6 @@
 using Catalog.Entities;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 /*
@@ -48,10 +50,26 @@ namespace Catalog.Repositories
                 if we don't add volumn then all data will be lose when we start again docker
                 we link our local path mongodbdata to the default mongoDb path in docker /data/db
                 mongo is the name of th image
+            
+            after add docker image we need to point to this image so we need to write a little bit of
+            configuration to appsetting.json:
+            -   "MongoDbBetting": {
+                "host": "localhost",
+                "post": "27017"
+            }
+            in order to read this config in our service the best way is to define a class 
+            create Settings/MongoDbSettings.cs
+            we add this config as properties in the new class
+            calculate connection string from properity like this we define read only property
+            public string ConnectionString {get { return $"mongodb://{}:{}" }}
+            after that we want to register MongoDb Client in service provider
         */
 
         private const string databaseName = "catalog";
         private const string collectionName = "items";
+
+        // define filter property and initilize it, after that we have refernece to filter object
+        private readonly FilterDefinitionBuilder<Item> filterBuilder = Builders<Item>.Filter;
 
         private readonly IMongoCollection<Item> itemsCollection;
 
@@ -70,22 +88,25 @@ namespace Catalog.Repositories
 
         public void DeleteItem(Guid id)
         {
-            throw new NotImplementedException();
+            var filter = filterBuilder.Eq(item => item.id, id);
+            itemsCollection.DeleteOne(filter);
         }
 
         public Item GetItem(Guid id)
         {
-            throw new NotImplementedException();
+            var filter = filterBuilder.Eq(item => item.id, id);
+            return itemsCollection.Find(filter).SingleOrDefault();
         }
 
         public IEnumerable<Item> GetItems()
         {
-            throw new NotImplementedException();
+            return itemsCollection.Find(new BsonDocument()).ToList();
         }
 
         public void UpdateItem(Item item)
         {
-            throw new NotImplementedException();
+            var filter = filterBuilder.Eq(existencItem => existencItem.id, item.id);
+            itemsCollection.ReplaceOne(filter, item);
         }
     }
 }
